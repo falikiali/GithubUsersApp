@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">GithubUsersApp</string>
+    <string name="app_name">GithubUsers</string>
+    <string name="creator">Created by Ali Faliki</string>
+    <string name="empty">Tidak ada data yang tersedia</string>
 </resources>
