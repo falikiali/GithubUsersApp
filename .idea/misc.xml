@@ -8,8 +8,11 @@
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.112" />
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/drawable/rounded_corner_item_user.xml" value="0.112" />
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/drawable/search_bar.xml" value="0.112" />
+        <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/activity_detail.xml" value="0.22" />
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/activity_splash.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/fragment_followers.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/fragment_followings.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/layout_empty.xml" value="0.22" />
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/layout_rv_main.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/Dartmedia/AndroidStudioProjects/GithubUsersApp/app/src/main/res/layout/row_item_user.xml" value="0.14130434782608695" />

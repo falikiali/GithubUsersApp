@@ -1,4 +1,4 @@
-package com.falikiali.githubusersapp.presentation.activity.main
+package com.falikiali.githubusersapp.presentation.fragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,26 +7,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.falikiali.githubusersapp.R
 import com.falikiali.githubusersapp.databinding.RowItemUserBinding
+import com.falikiali.githubusersapp.domain.model.FollowUserItem
 import com.falikiali.githubusersapp.domain.model.SearchUserItem
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.ListViewHolder>() {
-    private var listUser = ArrayList<SearchUserItem>()
-    var onItemClick: ((SearchUserItem) -> Unit)? = null
+class FollowAdapter : RecyclerView.Adapter<FollowAdapter.ListViewHolder>() {
+    private var listUser = ArrayList<FollowUserItem>()
+    var onItemClick: ((FollowUserItem) -> Unit)? = null
 
-    fun setItems(newList: List<SearchUserItem>) {
-        clearItems()
+    fun setItems(newList: List<FollowUserItem>) {
+        listUser.clear()
         listUser.addAll(newList)
         notifyDataSetChanged()
-    }
-
-    fun clearItems() {
-        listUser.clear()
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = RowItemUserBinding.bind(itemView)
 
-        fun bind(data: SearchUserItem) {
+        fun bind(data: FollowUserItem) {
             with(binding) {
                 tvUser.text = data.login
                 Glide.with(itemView.context)

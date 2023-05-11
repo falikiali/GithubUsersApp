@@ -2,4 +2,7 @@
     <string name="app_name">GithubUsers</string>
     <string name="creator">Created by Ali Faliki</string>
     <string name="empty">Tidak ada data yang tersedia</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="repository">Repository</string>
 </resources>

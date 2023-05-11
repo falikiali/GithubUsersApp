@@ -1,8 +1,12 @@
 package com.falikiali.githubusersapp.data
 
 import com.falikiali.githubusersapp.data.remote.api.ApiService
+import com.falikiali.githubusersapp.data.remote.dto.FollowUserResponseItem
 import com.falikiali.githubusersapp.data.remote.dto.SearchUserResponse
+import com.falikiali.githubusersapp.data.remote.dto.UserResponse
+import com.falikiali.githubusersapp.domain.model.FollowUserItem
 import com.falikiali.githubusersapp.domain.model.SearchUserItem
+import com.falikiali.githubusersapp.domain.model.User
 import com.falikiali.githubusersapp.domain.repository.UserRepository
 import com.falikiali.githubusersapp.utils.ResultState
 import com.google.gson.Gson
@@ -31,6 +35,80 @@ class ImplUserRepository @Inject constructor(private val apiService: ApiService)
                 } else {
                     val type = object : TypeToken<SearchUserResponse>(){}.type
                     val err = Gson().fromJson<SearchUserResponse>(response.errorBody()!!.charStream(), type)!!
+                    emit(ResultState.Failed(err.message.toString(), response.code()))
+                }
+            } catch (e: HttpException) {
+                emit(ResultState.Failed("Server Error", null))
+            } catch (e: IOException) {
+                emit(ResultState.Failed("Error Occurred", null))
+            } catch (e: Exception) {
+                emit(ResultState.Failed(e.localizedMessage ?: "An Unexpected Error", null))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getDetailUser(user: String): Flow<ResultState<User>> {
+        return flow {
+            try {
+                val response = apiService.getDetailUser(user)
+                if (response.isSuccessful) {
+                    val data = response.body()!!.toDomain()
+                    emit(ResultState.Success(data))
+                } else {
+                    val type = object : TypeToken<UserResponse>(){}.type
+                    val err = Gson().fromJson<UserResponse>(response.errorBody()!!.charStream(), type)!!
+                    emit(ResultState.Failed(err.message.toString(), response.code()))
+                }
+            } catch (e: HttpException) {
+                emit(ResultState.Failed("Server Error", null))
+            } catch (e: IOException) {
+                emit(ResultState.Failed("Error Occurred", null))
+            } catch (e: Exception) {
+                emit(ResultState.Failed(e.localizedMessage ?: "An Unexpected Error", null))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getFollowersUser(user: String): Flow<ResultState<List<FollowUserItem>>> {
+        return flow {
+            try {
+                val response = apiService.getFollowersUser(user)
+                if (response.isSuccessful) {
+                    if (response.body()?.isNotEmpty() == true) {
+                        val data = response.body()!!.map { it.toDomain() }
+                        emit(ResultState.Success(data))
+                    } else {
+                        emit(ResultState.Empty)
+                    }
+                } else {
+                    val type = object : TypeToken<FollowUserResponseItem>(){}.type
+                    val err = Gson().fromJson<FollowUserResponseItem>(response.errorBody()!!.charStream(), type)!!
+                    emit(ResultState.Failed(err.message.toString(), response.code()))
+                }
+            } catch (e: HttpException) {
+                emit(ResultState.Failed("Server Error", null))
+            } catch (e: IOException) {
+                emit(ResultState.Failed("Error Occurred", null))
+            } catch (e: Exception) {
+                emit(ResultState.Failed(e.localizedMessage ?: "An Unexpected Error", null))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getFollowingsUser(user: String): Flow<ResultState<List<FollowUserItem>>> {
+        return flow {
+            try {
+                val response = apiService.getFollowingsUser(user)
+                if (response.isSuccessful) {
+                    if (response.body()?.isNotEmpty() == true) {
+                        val data = response.body()!!.map { it.toDomain() }
+                        emit(ResultState.Success(data))
+                    } else {
+                        emit(ResultState.Empty)
+                    }
+                } else {
+                    val type = object : TypeToken<FollowUserResponseItem>(){}.type
+                    val err = Gson().fromJson<FollowUserResponseItem>(response.errorBody()!!.charStream(), type)!!
                     emit(ResultState.Failed(err.message.toString(), response.code()))
                 }
             } catch (e: HttpException) {

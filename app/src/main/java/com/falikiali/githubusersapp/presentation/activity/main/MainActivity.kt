@@ -1,5 +1,6 @@
 package com.falikiali.githubusersapp.presentation.activity.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.falikiali.githubusersapp.utils.Utils.hideKeyboard
 import com.falikiali.githubusersapp.utils.Utils.showToast
 import com.falikiali.githubusersapp.databinding.ActivityMainBinding
+import com.falikiali.githubusersapp.presentation.activity.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         initObserver()
         searchUser()
+        actionClickEachItem()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -115,6 +118,14 @@ class MainActivity : AppCompatActivity() {
                     return true
                 }
             })
+        }
+    }
+
+    private fun actionClickEachItem() {
+        mainAdapter.onItemClick = {
+            val i = Intent(this@MainActivity, DetailActivity::class.java)
+            i.putExtra(DetailActivity.USERNAME_KEY, it.login)
+            startActivity(i)
         }
     }
 
