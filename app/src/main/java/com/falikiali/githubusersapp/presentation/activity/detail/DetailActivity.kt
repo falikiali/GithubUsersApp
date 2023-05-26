@@ -3,14 +3,12 @@ package com.falikiali.githubusersapp.presentation.activity.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.falikiali.githubusersapp.R
 import com.falikiali.githubusersapp.databinding.ActivityDetailBinding
-import com.falikiali.githubusersapp.presentation.fragment.FollowersFragment
-import com.falikiali.githubusersapp.presentation.fragment.FollowingsFragment
+import com.falikiali.githubusersapp.presentation.fragment.follow.FollowersFragment
+import com.falikiali.githubusersapp.presentation.fragment.follow.FollowingsFragment
 import com.falikiali.githubusersapp.utils.Utils
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

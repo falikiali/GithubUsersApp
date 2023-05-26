@@ -1,4 +1,4 @@
-package com.falikiali.githubusersapp.presentation.fragment
+package com.falikiali.githubusersapp.presentation.fragment.follow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

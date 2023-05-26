@@ -24,10 +24,10 @@ data class UserResponse(
     val followers: Int? = null,
 
     @field:SerializedName("following")
-    val following: String? = null,
+    val following: Int? = null,
 
     @field:SerializedName("public_repos")
-    val publicRepos: String? = null,
+    val publicRepos: Int? = null,
 
     @field:SerializedName("avatar_url")
     val avatarUrl: String? = null
@@ -37,8 +37,8 @@ data class UserResponse(
         return User(
             name,
             username,
-            location,
-            company,
+            location ?: "-",
+            company ?: "-",
             followers,
             following,
             publicRepos,

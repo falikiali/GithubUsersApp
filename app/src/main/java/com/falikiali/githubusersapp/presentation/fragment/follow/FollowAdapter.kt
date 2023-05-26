@@ -1,4 +1,4 @@
-package com.falikiali.githubusersapp.presentation.fragment
+package com.falikiali.githubusersapp.presentation.fragment.follow
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.falikiali.githubusersapp.R
 import com.falikiali.githubusersapp.databinding.RowItemUserBinding
 import com.falikiali.githubusersapp.domain.model.FollowUserItem
-import com.falikiali.githubusersapp.domain.model.SearchUserItem
 
 class FollowAdapter : RecyclerView.Adapter<FollowAdapter.ListViewHolder>() {
     private var listUser = ArrayList<FollowUserItem>()

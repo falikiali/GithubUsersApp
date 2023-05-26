@@ -6,7 +6,7 @@ data class User(
     val location: String? = null,
     val company: String? = null,
     val followers: Int? = null,
-    val following: String? = null,
-    val publicRepos: String? = null,
+    val following: Int? = null,
+    val publicRepos: Int? = null,
     val avatarUrl: String? = null
 )

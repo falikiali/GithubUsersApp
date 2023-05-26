@@ -1,4 +1,4 @@
-package com.falikiali.githubusersapp.presentation.fragment
+package com.falikiali.githubusersapp.presentation.fragment.follow
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.falikiali.githubusersapp.R
-import com.falikiali.githubusersapp.databinding.FragmentFollowersBinding
+import com.falikiali.githubusersapp.databinding.FragmentFollowingsBinding
 import com.falikiali.githubusersapp.presentation.activity.detail.DetailActivity
 import com.falikiali.githubusersapp.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FollowersFragment : Fragment() {
+class FollowingsFragment : Fragment() {
 
     private val followViewModel: FollowViewModel by viewModels()
-    private val binding: FragmentFollowersBinding by lazy {
-        FragmentFollowersBinding.inflate(layoutInflater)
+    private val binding: FragmentFollowingsBinding by lazy {
+        FragmentFollowingsBinding.inflate(layoutInflater)
     }
     private val followAdapter: FollowAdapter by lazy {
         FollowAdapter()
@@ -34,14 +33,14 @@ class FollowersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getFollowersUser()
+        getFollowingUser()
         initRecyclerView()
         initObserver()
     }
 
-    private fun getFollowersUser() {
+    private fun getFollowingUser() {
         val user = requireActivity().intent.getStringExtra(DetailActivity.USERNAME_KEY)
-        followViewModel.getFollowersUser(user!!)
+        followViewModel.getFollowingUser(user!!)
     }
 
     private fun initRecyclerView() {
