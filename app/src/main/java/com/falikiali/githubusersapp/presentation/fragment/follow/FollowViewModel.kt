@@ -1,21 +1,19 @@
 package com.falikiali.githubusersapp.presentation.fragment.follow
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.falikiali.githubusersapp.domain.model.FollowUserItem
 import com.falikiali.githubusersapp.domain.usecase.UserUseCase
 import com.falikiali.githubusersapp.utils.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FollowViewModel @Inject constructor(private val userUseCase: UserUseCase) : ViewModel() {
 
-    private val _resultFollowers = MutableLiveData<List<FollowUserItem>>()
-    val resultFollowers: LiveData<List<FollowUserItem>> get() = _resultFollowers
+    private val _resultFollow = MutableLiveData<List<FollowUserItem>>()
+    val resultFollow: LiveData<List<FollowUserItem>> get() = _resultFollow
 
     private val _isEmpty = MutableLiveData<Boolean>()
     val isEmpty: LiveData<Boolean> get() = _isEmpty
@@ -26,6 +24,9 @@ class FollowViewModel @Inject constructor(private val userUseCase: UserUseCase) 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
+    /**
+     * Remote
+     */
     fun getFollowersUser(user: String) {
         _isEmpty.value = false
         _isLoading.value = true
@@ -34,7 +35,7 @@ class FollowViewModel @Inject constructor(private val userUseCase: UserUseCase) 
             userUseCase.getFollowersUser(user).collect {
                 _isLoading.value = false
                 when (it) {
-                    is ResultState.Success -> _resultFollowers.postValue(it.data)
+                    is ResultState.Success -> _resultFollow.postValue(it.data)
                     is ResultState.Failed -> _error.postValue(it.error)
                     is ResultState.Empty -> _isEmpty.value = true
                 }
@@ -50,7 +51,7 @@ class FollowViewModel @Inject constructor(private val userUseCase: UserUseCase) 
             userUseCase.getFollowingUser(user).collect {
                 _isLoading.value = false
                 when (it) {
-                    is ResultState.Success -> _resultFollowers.postValue(it.data)
+                    is ResultState.Success -> _resultFollow.postValue(it.data)
                     is ResultState.Failed -> _error.postValue(it.error)
                     is ResultState.Empty -> _isEmpty.value = true
                 }

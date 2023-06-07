@@ -3,6 +3,7 @@ package com.falikiali.githubusersapp.domain.usecase
 import com.falikiali.githubusersapp.domain.model.FollowUserItem
 import com.falikiali.githubusersapp.domain.model.SearchUserItem
 import com.falikiali.githubusersapp.domain.model.User
+import com.falikiali.githubusersapp.domain.model.UserFavorite
 import com.falikiali.githubusersapp.domain.repository.UserRepository
 import com.falikiali.githubusersapp.utils.ResultState
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +25,22 @@ class ImplUserUseCase @Inject constructor(private val userRepository: UserReposi
 
     override suspend fun getFollowingUser(user: String): Flow<ResultState<List<FollowUserItem>>> {
         return userRepository.getFollowingsUser(user)
+    }
+
+    override suspend fun insertFavoriteUser(userFavorite: UserFavorite) {
+        return userRepository.insertFavoriteUser(userFavorite)
+    }
+
+    override suspend fun removeFavoriteUser(userFavorite: UserFavorite) {
+        return userRepository.removeFavoriteUser(userFavorite)
+    }
+
+    override fun getAllFavoriteUser(): Flow<List<UserFavorite>> {
+        return userRepository.getAllFavoriteUser()
+    }
+
+    override fun isUserFavorited(username: String): Flow<Boolean> {
+        return userRepository.isUserFavorited(username)
     }
 
 }

@@ -1,5 +1,6 @@
 package com.falikiali.githubusersapp.presentation.fragment.follow
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,6 +37,7 @@ class FollowingsFragment : Fragment() {
         getFollowingUser()
         initRecyclerView()
         initObserver()
+        actionClickEachItem()
     }
 
     private fun getFollowingUser() {
@@ -53,7 +55,7 @@ class FollowingsFragment : Fragment() {
 
     private fun initObserver() {
         with(followViewModel) {
-            resultFollowers.observe(viewLifecycleOwner) {
+            resultFollow.observe(viewLifecycleOwner) {
                 followAdapter.setItems(it)
                 handleResultFollowing(true)
             }
@@ -75,7 +77,13 @@ class FollowingsFragment : Fragment() {
         }
     }
 
-
+    private fun actionClickEachItem() {
+        followAdapter.onItemClick = {
+            val i = Intent(requireActivity(), DetailActivity::class.java)
+            i.putExtra(DetailActivity.USERNAME_KEY, it.login)
+            startActivity(i)
+        }
+    }
 
     private fun handleResultFollowing(status: Boolean) {
         binding.rvUsers.visibility = if (status) View.VISIBLE else View.GONE

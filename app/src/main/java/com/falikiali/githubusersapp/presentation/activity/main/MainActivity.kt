@@ -3,15 +3,20 @@ package com.falikiali.githubusersapp.presentation.activity.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.falikiali.githubusersapp.R
 import com.falikiali.githubusersapp.utils.Utils.hideKeyboard
 import com.falikiali.githubusersapp.utils.Utils.showToast
 import com.falikiali.githubusersapp.databinding.ActivityMainBinding
 import com.falikiali.githubusersapp.presentation.activity.detail.DetailActivity
+import com.falikiali.githubusersapp.presentation.activity.favorite.FavoriteActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,11 +53,28 @@ class MainActivity : AppCompatActivity() {
 
                 if (count != 0f) {
                     hideKeyboard()
+                    binding.svSearch.clearFocus()
                 }
             }
         }
 
         return super.onTouchEvent(event)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_in_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_favorite -> {
+                val i = Intent(this@MainActivity, FavoriteActivity::class.java)
+                startActivity(i)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initToolbar() {
@@ -98,13 +120,12 @@ class MainActivity : AppCompatActivity() {
                     query?.let {
                         if (query.isNotEmpty()) {
                             mainViewModel.searchUser(query)
-                        } else {
-                            clearFocus()
-                            handleResultSearchUser(false)
-                            handleEmptyUser(true)
                         }
                     }
+
+                    clearFocus()
                     hideKeyboard()
+
                     return true
                 }
 

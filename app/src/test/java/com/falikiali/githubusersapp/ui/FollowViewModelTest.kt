@@ -50,7 +50,7 @@ class FollowViewModelTest {
         followViewModel.getFollowersUser("test")
         verify(userUseCase).getFollowersUser("test")
 
-        val actualData = followViewModel.resultFollowers.getAwaitOrValue()
+        val actualData = followViewModel.resultFollow.getAwaitOrValue()
         val isLoading = followViewModel.isLoading.getAwaitOrValue()
 
         assertEquals(followUsers, actualData)
@@ -104,7 +104,7 @@ class FollowViewModelTest {
         followViewModel.getFollowingUser("test")
         verify(userUseCase).getFollowingUser("test")
 
-        val actualData = followViewModel.resultFollowers.getAwaitOrValue()
+        val actualData = followViewModel.resultFollow.getAwaitOrValue()
         val isLoading = followViewModel.isLoading.getAwaitOrValue()
 
         assertEquals(followUsers, actualData)

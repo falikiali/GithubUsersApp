@@ -77,12 +77,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:textSize="16sp"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/tv_following_label"
-                    app:layout_constraintEnd_toStartOf="@id/tv_repository"
-                    app:layout_constraintStart_toEndOf="@id/tv_followers"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_username"
                     tools:text="35.1K" />
 
@@ -179,6 +179,16 @@
             app:tabIndicatorColor="@color/green"/>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundTint="@color/green"
+        app:tint="@color/red"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

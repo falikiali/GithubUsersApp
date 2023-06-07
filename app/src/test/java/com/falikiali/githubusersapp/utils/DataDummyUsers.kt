@@ -3,6 +3,7 @@ package com.falikiali.githubusersapp.utils
 import com.falikiali.githubusersapp.domain.model.FollowUserItem
 import com.falikiali.githubusersapp.domain.model.SearchUserItem
 import com.falikiali.githubusersapp.domain.model.User
+import com.falikiali.githubusersapp.domain.model.UserFavorite
 
 object DataDummyUsers {
 
@@ -57,6 +58,35 @@ object DataDummyUsers {
             1000,
             "String",
         )
+    }
+
+    fun generateDummyFavoriteUser(): UserFavorite {
+        return UserFavorite(
+            "String",
+            "String"
+        )
+    }
+
+    fun generateDummyFavoriteUsers(): List<UserFavorite> {
+        val list = arrayOf(
+            UserFavorite(
+                "String",
+                "String"
+            ),
+            UserFavorite(
+                "String",
+                "String"
+            ),
+            UserFavorite(
+                "String",
+                "String"
+            )
+        )
+
+        val favoriteUserList = ArrayList<UserFavorite>()
+        favoriteUserList.addAll(list)
+
+        return favoriteUserList
     }
 
 }

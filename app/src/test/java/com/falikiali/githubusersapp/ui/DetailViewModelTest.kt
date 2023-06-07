@@ -34,6 +34,7 @@ class DetailViewModelTest {
     private lateinit var userUseCase: UserUseCase
     private lateinit var detailViewModel: DetailViewModel
     private val dummy = DataDummyUsers.generateDummyDetailUser()
+    private val dummyFavoriteUser = DataDummyUsers.generateDummyFavoriteUser()
 
     @Before
     fun setUp() {
@@ -44,8 +45,8 @@ class DetailViewModelTest {
     fun `when successfully get User Detail`() = runTest {
         val expectedData = ResultState.Success(dummy)
         val dataFlow = MutableStateFlow(expectedData)
-
         `when`(userUseCase.getDetailUser("test")).thenReturn(dataFlow)
+
         detailViewModel.getDetailUser("test")
         verify(userUseCase).getDetailUser("test")
 
@@ -53,4 +54,37 @@ class DetailViewModelTest {
         assertNotNull(actualData)
         assertEquals(dummy, actualData)
     }
+
+    @Test
+    fun `when user is favorited`() = runTest {
+        val expectedData = true
+        val dataFlow = MutableStateFlow(expectedData)
+        `when`(userUseCase.isUserFavorited("test")).thenReturn(dataFlow)
+
+        detailViewModel.isUserFavorited("test")
+        verify(userUseCase).isUserFavorited("test")
+
+        val actualData = detailViewModel.isFavorited.getAwaitOrValue()
+        assertEquals(expectedData, actualData)
+
+        detailViewModel.updateFavoriteUser(dummyFavoriteUser)
+        verify(userUseCase).removeFavoriteUser(dummyFavoriteUser)
+    }
+
+    @Test
+    fun `when user is not favorited`() = runTest {
+        val expectedData = false
+        val dataFlow = MutableStateFlow(expectedData)
+        `when`(userUseCase.isUserFavorited("test")).thenReturn(dataFlow)
+
+        detailViewModel.isUserFavorited("test")
+        verify(userUseCase).isUserFavorited("test")
+
+        val actualData = detailViewModel.isFavorited.getAwaitOrValue()
+        assertEquals(expectedData, actualData)
+
+        detailViewModel.updateFavoriteUser(dummyFavoriteUser)
+        verify(userUseCase).insertFavoriteUser(dummyFavoriteUser)
+    }
+
 }

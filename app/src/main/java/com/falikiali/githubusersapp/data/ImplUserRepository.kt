@@ -1,5 +1,6 @@
 package com.falikiali.githubusersapp.data
 
+import com.falikiali.githubusersapp.data.local.dao.UserFavoriteDao
 import com.falikiali.githubusersapp.data.remote.api.ApiService
 import com.falikiali.githubusersapp.data.remote.dto.FollowUserResponseItem
 import com.falikiali.githubusersapp.data.remote.dto.SearchUserResponse
@@ -7,6 +8,7 @@ import com.falikiali.githubusersapp.data.remote.dto.UserResponse
 import com.falikiali.githubusersapp.domain.model.FollowUserItem
 import com.falikiali.githubusersapp.domain.model.SearchUserItem
 import com.falikiali.githubusersapp.domain.model.User
+import com.falikiali.githubusersapp.domain.model.UserFavorite
 import com.falikiali.githubusersapp.domain.repository.UserRepository
 import com.falikiali.githubusersapp.utils.ResultState
 import com.google.gson.Gson
@@ -15,12 +17,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
 import javax.inject.Inject
 
-class ImplUserRepository @Inject constructor(private val apiService: ApiService) : UserRepository {
+class ImplUserRepository @Inject constructor(private val apiService: ApiService, private val userFavoriteDao: UserFavoriteDao) : UserRepository {
     override suspend fun searchUser(keyword: String): Flow<ResultState<List<SearchUserItem>>> {
         return flow {
             try {
@@ -119,5 +122,25 @@ class ImplUserRepository @Inject constructor(private val apiService: ApiService)
                 emit(ResultState.Failed(e.localizedMessage ?: "An Unexpected Error", null))
             }
         }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun insertFavoriteUser(userFavorite: UserFavorite) {
+        userFavoriteDao.insertFavoriteUser(userFavorite.toEntity())
+    }
+
+    override suspend fun removeFavoriteUser(userFavorite: UserFavorite) {
+        userFavoriteDao.removeFavoriteUser(userFavorite.toEntity())
+    }
+
+    override fun getAllFavoriteUser(): Flow<List<UserFavorite>> {
+        return userFavoriteDao.getAllFavoriteUser().map { list ->
+            list.map { user ->
+                user.toDomain()
+            }
+        }
+    }
+
+    override fun isUserFavorited(username: String): Flow<Boolean> {
+        return userFavoriteDao.isUserFavorited(username)
     }
 }
